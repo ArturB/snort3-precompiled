@@ -1,0 +1,80 @@
+version: '3.2'
+
+services:
+
+  leap15.1:
+    build: 
+      context: ./opensuse
+      args:
+        OS_VERSION: opensuse/leap:15.1
+    environment:
+      OPENSUSE_VERSION: leap-15.1
+    # image: wut/server
+    volumes:
+    - type: bind
+      source: ./dist
+      target: /dist
+    privileged: true
+  leap15.1-test:
+    build: 
+      context: ./test/opensuse
+      args:
+        OS_VERSION: opensuse/leap:15.1
+    environment:
+      OPENSUSE_VERSION: leap-15.1
+    # image: wut/server
+    volumes:
+    - type: bind
+      source: ./dist
+      target: /dist
+    privileged: true
+
+  fc30:
+    build: 
+      context: ./fedora
+      args:
+        OS_VERSION: fedora:30
+    # image: wut/server
+    volumes:
+    - type: bind
+      source: ./dist
+      target: /dist
+    privileged: true
+  fc30-test:
+    build: 
+      context: ./test/fedora
+      args:
+        OS_VERSION: fedora:30
+    environment:
+      FEDORA_VERSION: 30
+    # image: wut/server
+    volumes:
+    - type: bind
+      source: ./dist
+      target: /dist
+    privileged: true
+
+  fc31:
+    build: 
+      context: ./fedora
+      args:
+        OS_VERSION: fedora:31
+    # image: wut/server
+    volumes:
+    - type: bind
+      source: ./dist
+      target: /dist
+    privileged: true
+  fc31-test:
+    build: 
+      context: ./test/fedora
+      args:
+        OS_VERSION: fedora:31
+    environment:
+      FEDORA_VERSION: 31
+    # image: wut/server
+    volumes:
+    - type: bind
+      source: ./dist
+      target: /dist
+    privileged: true
