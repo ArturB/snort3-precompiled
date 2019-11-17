@@ -11,7 +11,7 @@ fi
 # Copy RPM package to host
 mkdir -p /dist/opensuse
 cp $( find $PKG_BUILD_ROOT/RPMS/ -name *.rpm) /dist/opensuse
-for f in $(ls /dist/opensuse)
+for f in $( ls /dist/opensuse | grep -v leap )
 do 
     mv /dist/opensuse/$f /dist/opensuse/$(basename $f .rpm)-$OPENSUSE_VERSION.rpm
 done

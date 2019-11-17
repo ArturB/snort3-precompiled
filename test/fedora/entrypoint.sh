@@ -9,6 +9,6 @@ docker exec -it $(docker ps -q) /bin/bash' ; sleep infinity
 fi
 
 # Copy the RPM package from dist directory, install snort and check it
-cp $( find /dist/fedora -name *$FEDORA_VERSION*.rpm ) / 
+cp -v $( find /dist/fedora -name *$FEDORA_VERSION*.rpm ) / 
 dnf install -y /snort3* 
 snort -V
