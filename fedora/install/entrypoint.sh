@@ -12,3 +12,4 @@ fi
 cp -v $( find /dist/fedora -name *$FEDORA_VERSION*.rpm ) / 
 dnf install -y /snort3* 
 snort -V
+snort --daq-dir=/usr/lib64/daq --daq-list

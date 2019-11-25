@@ -7,12 +7,14 @@ ENV LD_LIBRARY_PATH /usr/local/lib
 ENV PKG_BUILD_ROOT /usr/src/packages
 
 # Install basic build tools
-RUN zypper install -y autoconf automake cmake git gcc-c++ libtool make pkg-config rpm-build rpmdevtools
+RUN zypper install -y autoconf automake bison cmake flex git gcc-c++ libtool make pkg-config rpm-build rpmdevtools wget
 
-# Install libdnet and snort daq library from source
+# Install libpcap, libdnet and snort daq library from source
+RUN wget http://www.tcpdump.org/release/libpcap-1.9.1.tar.gz && tar -xvf libpcap-1.9.1.tar.gz
+RUN cd libpcap-1.9.1 && ./configure && make install
 RUN git clone https://github.com/jncornett/libdnet
-RUN git clone https://github.com/snort3/libdaq
 RUN cd libdnet && ./configure && make install
+RUN git clone https://github.com/snort3/libdaq
 RUN cd libdaq && autoreconf --install && ./configure && make install
 
 # Install other snort dependencies
@@ -31,7 +33,7 @@ RUN /snort3/snort3/bin/snort -V
 # Make RPM package
 COPY ./snort3.spec /
 RUN mkdir -p $PKG_BUILD_ROOT/BUILD/usr     && cp -r /snort3/snort3/* $PKG_BUILD_ROOT/BUILD/usr
-RUN mkdir -p $PKG_BUILD_ROOT/BUILD/usr/lib && cp -r /usr/local/lib/* $PKG_BUILD_ROOT/BUILD/usr/lib64
+RUN mkdir -p $PKG_BUILD_ROOT/BUILD/usr/lib && cp -r /usr/local/lib/* $PKG_BUILD_ROOT/BUILD/usr/lib64 && rm -fv $PKG_BUILD_ROOT/BUILD/usr/lib64/libpcap*
 RUN mkdir -p $PKG_BUILD_ROOT/SPECS         && cp    /snort3.spec     $PKG_BUILD_ROOT/SPECS
 RUN rpmbuild -bb $PKG_BUILD_ROOT/SPECS/snort3.spec
 

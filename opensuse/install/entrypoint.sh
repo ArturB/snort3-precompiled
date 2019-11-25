@@ -12,3 +12,4 @@ fi
 cp -v $( find /dist/opensuse -name *$OPENSUSE_VERSION*.rpm ) / 
 zypper --non-interactive install --allow-unsigned-rpm -y /snort3*
 snort -V
+snort --daq-dir=/usr/lib64/daq --daq-list
