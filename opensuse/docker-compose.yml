@@ -1,0 +1,67 @@
+version: '3.2'
+
+services:
+
+  leap15.0-build:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/leap15.0-build:latest
+    build: 
+      context: ./build
+      args:
+        OS_VERSION: opensuse/leap:15.0
+    environment:
+      OPENSUSE_VERSION: leap-15.0
+      DIST_DIR: /dist/opensuse
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true
+  
+  leap15.0-install:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/leap15.0-install:latest
+    depends_on: 
+    - leap15.0-build
+    build: 
+      context: ./install
+      args:
+        OS_VERSION: opensuse/leap:15.0
+    environment:
+      OPENSUSE_VERSION: leap-15.0
+      DIST_DIR: /dist/opensuse
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true
+
+  leap15.1-build:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/leap15.1-build:latest
+    build: 
+      context: ./build
+      args:
+        OS_VERSION: opensuse/leap:15.1
+    environment:
+      OPENSUSE_VERSION: leap-15.1
+      DIST_DIR: /dist/opensuse
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true
+  
+  leap15.1-install:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/leap15.1-install:latest
+    depends_on: 
+    - leap15.1-build
+    build: 
+      context: ./install
+      args:
+        OS_VERSION: opensuse/leap:15.1
+    environment:
+      OPENSUSE_VERSION: leap-15.1
+      DIST_DIR: /dist/opensuse
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true

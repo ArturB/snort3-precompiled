@@ -1,0 +1,67 @@
+version: '3.2'
+
+services:
+
+  stretch-build:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/stretch-build:latest
+    build: 
+      context: ./build
+      args:
+        OS_VERSION: debian:stretch
+    environment:
+      DEBIAN_VERSION: debian-stretch
+      DIST_DIR: /dist/debian
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true
+  
+  stretch-install:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/stretch-install:latest
+    depends_on: 
+    - stretch-build
+    build: 
+      context: ./install
+      args:
+        OS_VERSION: debian:stretch
+    environment:
+      DEBIAN_VERSION: debian-stretch
+      DIST_DIR: /dist/debian
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true
+
+  buster-build:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/buster-build:latest
+    build: 
+      context: ./build
+      args:
+        OS_VERSION: debian:buster
+    environment:
+      DEBIAN_VERSION: debian-buster
+      DIST_DIR: /dist/debian
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true
+  
+  buster-install:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/buster-install:latest
+    depends_on: 
+    - buster-build
+    build: 
+      context: ./install
+      args:
+        OS_VERSION: debian:buster
+    environment:
+      DEBIAN_VERSION: debian-buster
+      DIST_DIR: /dist/debian
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true

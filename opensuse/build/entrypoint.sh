@@ -9,9 +9,9 @@ docker exec -it $(docker ps -q) /bin/bash' ; sleep infinity
 fi
 
 # Copy RPM package to host
-mkdir -p /dist/opensuse
-cp $( find $PKG_BUILD_ROOT/RPMS/ -name *.rpm) /dist/opensuse
+mkdir -p $DIST_DIR
+cp $( find $PKG_BUILD_ROOT/RPMS/ -name *.rpm) $DIST_DIR
 for f in $( ls /dist/opensuse | grep -v leap )
 do 
-    mv /dist/opensuse/$f /dist/opensuse/$(basename $f .rpm)-$OPENSUSE_VERSION.rpm
+    mv $DIST_DIR/$f $DIST_DIR/$(basename $f .rpm)-$OPENSUSE_VERSION.rpm
 done

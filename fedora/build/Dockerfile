@@ -1,10 +1,8 @@
 ARG OS_VERSION
 FROM $OS_VERSION
 
-# Set the working directory and environment variables
+# Set the working directory
 WORKDIR /
-ENV LD_LIBRARY_PATH /usr/local/lib
-ENV PKG_BUILD_ROOT /root/rpmbuild
 
 # Install basic build tools
 RUN dnf install -y autoconf automake bison cmake flex git gcc-c++ libtool make pkg-config rpmdevtools wget
@@ -18,7 +16,11 @@ RUN git clone https://github.com/snort3/libdaq
 RUN cd libdaq && autoreconf --install && ./configure && make install
 
 # Install other snort dependencies
-RUN dnf install -y hwloc-devel libpcap-devel luajit-devel openssl-devel pcre-devel zlib-devel
+RUN dnf install -y hwloc-devel luajit-devel openssl-devel pcre-devel zlib-devel
+
+# Set runtime environment: 
+#  - path, where libraries compiled from source are installed
+ENV LD_LIBRARY_PATH /usr/local/lib
 
 # Download snort latest source and install
 RUN git clone git://github.com/snort3/snort3
@@ -30,11 +32,24 @@ RUN cd /snort3 && \
 # Basic installation check
 RUN /snort3/snort3/bin/snort -V
 
-# Make RPM package
+# Set runtime environment: 
+#  - package build root
+ENV PKG_BUILD_ROOT /root/rpmbuild
+# Set runtime environment: 
+#  - path, where static libraries should be installed on target machine
+ENV TARGET_LIBRARY_PATH /usr/lib64
+
+# Copy files containes in RPM package
+RUN mkdir -p $PKG_BUILD_ROOT/BUILD/usr && \
+    cp -r /snort3/snort3/* $PKG_BUILD_ROOT/BUILD/usr && \
+    mkdir -p $PKG_BUILD_ROOT/BUILD/$TARGET_LIBRARY_PATH && \
+    cp -r $LD_LIBRARY_PATH/* $PKG_BUILD_ROOT/BUILD/$TARGET_LIBRARY_PATH && \
+    rm -fv $PKG_BUILD_ROOT/BUILD/$TARGET_LIBRARY_PATH/libpcap*
+
+# Build RPM package
 COPY ./snort3.spec /
-RUN mkdir -p $PKG_BUILD_ROOT/BUILD/usr     && cp -r /snort3/snort3/* $PKG_BUILD_ROOT/BUILD/usr
-RUN mkdir -p $PKG_BUILD_ROOT/BUILD/usr/lib && cp -r /usr/local/lib/* $PKG_BUILD_ROOT/BUILD/usr/lib64 && rm -fv $PKG_BUILD_ROOT/BUILD/usr/lib64/libpcap*
-RUN mkdir -p $PKG_BUILD_ROOT/SPECS         && cp    /snort3.spec     $PKG_BUILD_ROOT/SPECS
+RUN mkdir -p $PKG_BUILD_ROOT/SPECS && \
+    cp /snort3.spec $PKG_BUILD_ROOT/SPECS
 RUN rpmbuild -bb $PKG_BUILD_ROOT/SPECS/snort3.spec
 
 # Copy RPM package to host

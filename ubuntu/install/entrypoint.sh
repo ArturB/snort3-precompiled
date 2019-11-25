@@ -9,9 +9,9 @@ docker exec -it $(docker ps -q) /bin/bash' ; sleep infinity
 fi
 
 # Copy the RPM package from dist directory and install snort
-cp -v $( find $DIST_DIR -name *$OPENSUSE_VERSION*.rpm ) / 
-zypper --non-interactive install --allow-unsigned-rpm -y /snort3*
+cp -v $( find $DIST_DIR -name *$UBUNTU_VERSION*.deb ) / 
+apt-get update && apt-get install -y /snort3*
 
 # Basic installation check
-snort --daq-dir=/usr/lib64/daq --daq-list
+snort --daq-dir=/usr/lib/x86_64-linux-gnu/daq --daq-list
 snort -V

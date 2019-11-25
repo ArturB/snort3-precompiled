@@ -20,6 +20,5 @@ cp -r %{_builddir}/usr %{buildroot}
 /usr/bin/*
 /usr/etc/snort/*
 /usr/include/snort/*
-/usr/lib/*
 /usr/lib64/*
 /usr/share/doc/snort/*

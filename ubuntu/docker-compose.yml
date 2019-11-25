@@ -1,0 +1,67 @@
+version: '3.2'
+
+services:
+
+  bionic-build:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/bionic-build:latest
+    build: 
+      context: ./build
+      args:
+        OS_VERSION: ubuntu:bionic
+    environment:
+      UBUNTU_VERSION: ubuntu-18.04
+      DIST_DIR: /dist/ubuntu
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true
+  
+  bionic-install:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/bionic-install:latest
+    depends_on: 
+    - bionic-build
+    build: 
+      context: ./install
+      args:
+        OS_VERSION: ubuntu:bionic
+    environment:
+      UBUNTU_VERSION: ubuntu-18.04
+      DIST_DIR: /dist/ubuntu
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true
+
+  eoan-build:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/eoan-build:latest
+    build: 
+      context: ./build
+      args:
+        OS_VERSION: ubuntu:eoan
+    environment:
+      UBUNTU_VERSION: ubuntu-19.10
+      DIST_DIR: /dist/ubuntu
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true
+  
+  eoan-install:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/eoan-install:latest
+    depends_on: 
+    - eoan-build
+    build: 
+      context: ./install
+      args:
+        OS_VERSION: ubuntu:eoan
+    environment:
+      UBUNTU_VERSION: ubuntu-19.10
+      DIST_DIR: /dist/ubuntu
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true

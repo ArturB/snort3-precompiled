@@ -1,0 +1,33 @@
+version: '3.2'
+
+services:
+
+  centos8-build:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/centos-build:latest
+    build: 
+      context: ./build
+      args:
+        OS_VERSION: centos:8
+    environment:
+      CENTOS_VERSION: "8"
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true
+  
+  centos8-install:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/centos-install:latest
+    depends_on: 
+    - centos8-build
+    build: 
+      context: ./install
+      args:
+        OS_VERSION: centos:8
+    environment:
+      CENTOS_VERSION: "8"
+    volumes:
+    - type: bind
+      source: ../dist
+      target: /dist
+    privileged: true

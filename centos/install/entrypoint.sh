@@ -9,7 +9,7 @@ docker exec -it $(docker ps -q) /bin/bash' ; sleep infinity
 fi
 
 # Copy the RPM package from dist directory and install snort
-cp -v $( find $DIST_DIR -name *$OPENSUSE_VERSION*.rpm ) / 
+cp -v $( find /dist/opensuse -name *$CENTOS_VERSION*.rpm ) / 
 zypper --non-interactive install --allow-unsigned-rpm -y /snort3*
 
 # Basic installation check

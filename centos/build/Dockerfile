@@ -1,20 +1,22 @@
-FROM centos:8
+ARG OS_VERSION
+FROM $OS_VERSION
 
-# Set the working directory and LD_LIBRARY_PATH
+# Set the working directory and environment variables
 WORKDIR /
-ENV LD_LIBRARY_PATH /usr/local/lib
 
 # Install basic build tools
-RUN $PACKAGE_MANAGER install -y autoconf automake cmake git gcc-c++ libtool make pkg-config rpmdevtools
+RUN zypper install -y autoconf automake bison cmake flex git gcc-c++ libtool make pkg-config rpm-build rpmdevtools wget
 
-# Install libdnet and snort daq library from source
+# Install libpcap, libdnet and snort daq library from source
+RUN wget http://www.tcpdump.org/release/libpcap-1.9.1.tar.gz && tar -xvf libpcap-1.9.1.tar.gz
+RUN cd libpcap-1.9.1 && ./configure && make install
 RUN git clone https://github.com/jncornett/libdnet
-RUN git clone https://github.com/snort3/libdaq
 RUN cd libdnet && ./configure && make install
+RUN git clone https://github.com/snort3/libdaq
 RUN cd libdaq && autoreconf --install && ./configure && make install
 
 # Install other snort dependencies
-RUN $PACKAGE_MANAGER install -y hwloc-devel libpcap-devel luajit-devel openssl-devel pcre-devel zlib-devel
+RUN zypper install -y hwloc-devel luajit-devel openssl-devel pcre-devel zlib-devel
 
 # Download snort latest source and install
 RUN git clone git://github.com/snort3/snort3
@@ -23,15 +25,34 @@ RUN cd /snort3 && \
     cd build && \
     make -j $(nproc) install
 
+# Set runtime environment: 
+#  - path, where libraries compiled from source are installed
+ENV LD_LIBRARY_PATH /usr/local/lib
+# Set runtime environment: 
+#  - package build root
+ENV PKG_BUILD_ROOT /usr/src/packages
+# Set runtime environment: 
+#  - path, where static libraries should be installed on target machine
+ENV TARGET_LIBRARY_PATH /usr/lib64
+
 # Basic installation check
 RUN /snort3/snort3/bin/snort -V
 
-# Make RPM package
-RUN mkdir -p /root/rpmbuild/BUILD/usr     && cp -r /snort3/snort3/* /root/rpmbuild/BUILD/usr
-RUN mkdir -p /root/rpmbuild/BUILD/usr/lib && cp -r /usr/local/lib/* /root/rpmbuild/BUILD/usr/lib
-RUN mkdir -p /root/rpmbuild/SPECS
-COPY . /root/rpmbuild/SPECS
-RUN rpmbuild -bb /root/rpmbuild/SPECS/snort3.spec
+# Copy files contained in RPM package
+RUN mkdir -p $PKG_BUILD_ROOT/BUILD/usr && \
+    cp -r /snort3/snort3/* $PKG_BUILD_ROOT/BUILD/usr \
+    mkdir -p $PKG_BUILD_ROOT/BUILD/$TARGET_LIBRARY_PATH && \
+    cp -r $LD_LIBRARY_PATH/* $PKG_BUILD_ROOT/BUILD/$TARGET_LIBRARY_PATH && \
+    rm -fv $PKG_BUILD_ROOT/BUILD/$TARGET_LIBRARY_PATH/libpcap*
+
+# Build RPM package
+COPY ./snort3.spec /
+RUN mkdir -p $PKG_BUILD_ROOT/SPECS && \
+    cp /snort3.spec $PKG_BUILD_ROOT/SPECS
+RUN rpmbuild -bb $PKG_BUILD_ROOT/SPECS/snort3.spec
 
 # Copy RPM package to host
-ENTRYPOINT cp -r /root/rpmbuild/RPMS/* /dist
+# Add --keep option to entrypoint script to keep container open;
+# It allows to easily debug using docker exec.
+COPY ./entrypoint.sh /
+ENTRYPOINT /entrypoint.sh

@@ -9,5 +9,5 @@ docker exec -it $(docker ps -q) /bin/bash' ; sleep infinity
 fi
 
 # Copy RPM package to host
-mkdir -p /dist/fedora
-cp $( find $PKG_BUILD_ROOT/RPMS/ -name *.rpm) /dist/fedora
+mkdir -p $DIST_DIR
+cp $( find $PKG_BUILD_ROOT/RPMS/ -name *.rpm) $DIST_DIR

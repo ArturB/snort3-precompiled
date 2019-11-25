@@ -1,0 +1,9 @@
+Package: snort3
+Version: 0.1-1
+Architecture: amd64
+Maintainer: Artur M. Brodzki <artur@brodzki.org>
+Depends: libhwloc-dev, libluajit-5.1-dev, libpcre3-dev, libssl-dev, zlib1g-dev
+Installed-Size: 10233
+Section: misc
+Priority: optional
+Description: Snort 3 Beta IDS/IPS system.
