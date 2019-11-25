@@ -9,6 +9,9 @@ Currently, packages for following operating systems are available:
 - OpenSUSE Leap [15.1](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1.x86_64-leap-15.1.rpm) and [15.0](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1.x86_64-leap-15.0.rpm)
 - Ubuntu [19.10 Eoan Ermine](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-ubuntu-19.10.deb) and [18.04 Bionic Beaver LTS](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-ubuntu-18.04.deb)
 
+Note for OpenSUSE users: zypper accepts only signed packages by default. Packages available here aren't signed, so you have to utilize *--allow-unsigned-rpm* flag:
+> zypper install --non-interactive --allow-unsigned-rpm ./snort3-0.1-1.rpm
+
 ## Docker containers
 Each package is build and tested with predefined Docker container. Two types of containers are used:
 - build containers: they download all necessary dependencies and current source code of Snort; then, they compile Snort 3 from source and generate .rpm or .deb binary package, which is then copied into [dist](https://github.com/ArturB/snort3-precompiled/tree/master/dist) directory;
