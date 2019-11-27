@@ -1,4 +1,15 @@
-version: '3.2'
+version: '3.4'
+
+x-base: &base
+  volumes:
+  - type: bind
+    source: ../dist
+    target: /dist
+  privileged: true
+x-environment: &env
+  DIST_DIR: /dist/fedora
+  PKG_BUILD_ROOT: /root/rpmbuild
+  TARGET_LIBRARY_PATH: /usr/lib64
 
 services:
 
@@ -8,13 +19,9 @@ services:
       context: ./build
       args:
         OS_VERSION: fedora:30
-    environment:
-      DIST_DIR: /dist/fedora
-    volumes:
-    - type: bind
-      source: ../dist
-      target: /dist
-    privileged: true
+    <<: *base
+    environment: 
+      <<: *env
   
   fc30-install:
     image: docker.pkg.github.com/arturb/snort3-precompiled/fc30-install:latest
@@ -24,14 +31,10 @@ services:
       context: ./install
       args:
         OS_VERSION: fedora:30
-    environment:
-      FEDORA_VERSION: 30
-      DIST_DIR: /dist/fedora
-    volumes:
-    - type: bind
-      source: ../dist
-      target: /dist
-    privileged: true
+    <<: *base
+    environment: 
+      <<: *env
+      DIST_NAME: fc30
 
   fc31-build:
     image: docker.pkg.github.com/arturb/snort3-precompiled/fc31-build:latest
@@ -39,13 +42,9 @@ services:
       context: ./build
       args:
         OS_VERSION: fedora:31
-    environment:
-      DIST_DIR: /dist/fedora
-    volumes:
-    - type: bind
-      source: ../dist
-      target: /dist
-    privileged: true
+    <<: *base
+    environment: 
+      <<: *env
   
   fc31-install:
     image: docker.pkg.github.com/arturb/snort3-precompiled/fc31-install:latest
@@ -55,11 +54,7 @@ services:
       context: ./install
       args:
         OS_VERSION: fedora:31
-    environment:
-      FEDORA_VERSION: 31
-      DIST_DIR: /dist/fedora
-    volumes:
-    - type: bind
-      source: ../dist
-      target: /dist
-    privileged: true
+    <<: *base
+    environment: 
+      <<: *env
+      DIST_NAME: fc31

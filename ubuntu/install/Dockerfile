@@ -4,7 +4,7 @@ FROM $OS_VERSION
 # Set the working directory
 WORKDIR /
 
-# Copy the DEB package from dist directory, install snort and check it
+# Install snort and check it
 # Add --keep option to entrypoint script to keep container open;
 # It allows to easily debug using docker exec.
 COPY ./entrypoint.sh /
