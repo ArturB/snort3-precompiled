@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Exit if any command fails
+set -e
+
 # If specified, keep container open, allowing user to log in with bash
 if [[ $1 == "--keep" ]]; then 
 echo -e \
@@ -9,8 +12,8 @@ docker exec -it $(docker ps -q) /bin/bash' ; sleep infinity
 fi
 
 # Install snort
-apt-get update && apt-get install -y $DIST_DIR/snort3*
+apt-get update && apt-get install -y $DIST_DIR/snort3*$DIST_NAME*.deb
 
 # Basic installation check
-snort --daq-dir=/usr/lib/x86_64-linux-gnu/daq --daq-list
+snort --daq-dir=$TARGET_LIBRARY_PATH/daq --daq-list
 snort -V

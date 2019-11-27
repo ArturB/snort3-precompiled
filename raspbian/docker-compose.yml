@@ -1,4 +1,15 @@
-version: '3.2'
+version: '3.4'
+
+x-base: &base
+  volumes:
+  - type: bind
+    source: ../dist
+    target: /dist
+  privileged: true
+x-environment: &env
+  DIST_DIR: /dist/raspbian
+  PKG_BUILD_ROOT: /snort3-0.1-1
+  TARGET_LIBRARY_PATH: /usr/lib/arm-linux-gnueabihf
 
 services:
 
@@ -8,17 +19,10 @@ services:
       context: ./build
       args:
         OS_VERSION: debian:stretch
-    environment:
+    <<: *base
+    environment: 
+      <<: *env
       DIST_NAME: raspbian-stretch
-      DIST_DIR: /dist/raspbian
-      PKG_BUILD_ROOT: /snort3-0.1-1
-      LD_LIBRARY_PATH: /usr/local/lib
-      TARGET_LIBRARY_PATH: /usr/lib/arm-linux-gnueabihf
-    volumes:
-    - type: bind
-      source: ../dist
-      target: /dist
-    privileged: true
   
   stretch-install:
     image: docker.pkg.github.com/arturb/snort3-precompiled/raspbian-stretch-install:latest
@@ -28,14 +32,10 @@ services:
       context: ./install
       args:
         OS_VERSION: debian:stretch
-    environment:
-      DEBIAN_VERSION: raspbian-stretch
-      DIST_DIR: /dist/raspbian
-    volumes:
-    - type: bind
-      source: ../dist
-      target: /dist
-    privileged: true
+    <<: *base
+    environment: 
+      <<: *env
+      DIST_NAME: raspbian-stretch
 
   buster-build:
     image: docker.pkg.github.com/arturb/snort3-precompiled/raspbian-buster-build:latest
@@ -43,14 +43,10 @@ services:
       context: ./build
       args:
         OS_VERSION: debian:buster
-    environment:
-      DEBIAN_VERSION: raspbian-buster
-      DIST_DIR: /dist/raspbian
-    volumes:
-    - type: bind
-      source: ../dist
-      target: /dist
-    privileged: true
+    <<: *base
+    environment: 
+      <<: *env
+      DIST_NAME: raspbian-buster
   
   buster-install:
     image: docker.pkg.github.com/arturb/snort3-precompiled/raspbian-buster-install:latest
@@ -60,11 +56,7 @@ services:
       context: ./install
       args:
         OS_VERSION: debian:buster
-    environment:
-      DEBIAN_VERSION: raspbian-buster
-      DIST_DIR: /dist/raspbian
-    volumes:
-    - type: bind
-      source: ../dist
-      target: /dist
-    privileged: true
+    <<: *base
+    environment: 
+      <<: *env
+      DIST_NAME: raspbian-buster
