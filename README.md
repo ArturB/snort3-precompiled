@@ -16,7 +16,9 @@ Packages for Debian, Fedora, Raspbian and Ubuntu should work out of the box. For
 ### CentOS
 You have to add PowerTools repository in dnf:
 > dnf install -y dnf-plugins-core
-> dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+
+> dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
 > dnf config-manager --set-enabled PowerTools
 
 After then, provided package should install smoothly:
