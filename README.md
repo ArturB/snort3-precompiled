@@ -1,16 +1,30 @@
 # Snort 3 Precompiled binaries
 
-This repository contains precompiled binaries (in .deb and .rpm format) of [Snort 3](https://github.com/snort3/snort3) (which is currently in beta) for x86_64 architecture. All binaries are build and tested using Docker containers, and are updated with newest version of Snort from source on monthly basis. 
+This repository contains precompiled binaries (in .deb and .rpm format) of [Snort 3](https://github.com/snort3/snort3) (which is currently in beta) for various Linux distributions. Both x86_64 and armhf architectures are supported; armhf packages for Raspberry Pi are available. All binaries are build and tested using Docker containers, and are updated with newest version of Snort from source on monthly basis. 
 
 ## Supported distributions
 Currently, packages for following operating systems are available:
+- [CentOS 8](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1.el8.x86_64.rpm)
 - Debian [Buster](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-debian-buster.deb) and [Stretch](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-debian-stretch.deb)
 - Fedora [31](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1.fc31.x86_64.rpm) and [30](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1.fc30.x86_64.rpm)
 - OpenSUSE Leap [15.1](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1.x86_64-leap-15.1.rpm) and [15.0](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1.x86_64-leap-15.0.rpm)
+- Raspbian [Buster](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-raspbian-buster.deb) and [Stretch](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-raspbian-stretch.deb)
 - Ubuntu [19.10 Eoan Ermine](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-ubuntu-19.10.deb) and [18.04 Bionic Beaver LTS](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-ubuntu-18.04.deb)
 
-Note for OpenSUSE users: zypper accepts only signed packages by default. Packages available here aren't signed, so you have to utilize *--allow-unsigned-rpm* flag:
-> zypper install --non-interactive --allow-unsigned-rpm ./snort3-0.1-1.rpm
+Packages for Debian, Fedora, Raspbian and Ubuntu should work out of the box. For CentOS and OpenSUSE small preconfiguration is necessary. 
+
+### CentOS
+You have to add PowerTools repository in dnf:
+> dnf install -y dnf-plugins-core
+> dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+> dnf config-manager --set-enabled PowerTools
+
+After then, provided package should install smoothly:
+> dnf install -y ./snort3-0.1-1.el8.x86_64.rpm
+
+### OpenSUE
+Zypper accepts only signed packages by default. Packages available here aren't signed, so you have to utilize *--allow-unsigned-rpm* flag:
+> zypper --non-interactive install --allow-unsigned-rpm ./snort3-0.1-1.x86_64-leap15.1.rpm
 
 ## Docker containers
 Each package is build and tested with predefined Docker container. Two types of containers are used:
