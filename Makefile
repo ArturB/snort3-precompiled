@@ -11,6 +11,11 @@ clean:
 		cd dist && rm -rfv *
 		touch .gitkeep
 
+centos: centos8
+
+centos8:
+		docker-compose -f centos/docker-compose.yml up --build centos8-build
+		docker-compose -f centos/docker-compose.yml up --build centos8-install
 
 debian: 
 		stretch buster
