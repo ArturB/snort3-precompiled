@@ -1,6 +1,9 @@
 #!/bin/bash
 
 function build {
+    # Remove previous binary packages
+    rm -v dist/$1/*
+
     # Build image
     cp -v script/build/Dockerfile     $1/build
     cp -v script/keep-open.sh         $1/build

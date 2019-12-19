@@ -34,7 +34,7 @@ COPY snort3.spec /
 RUN /build-package.sh
 
 # Build and copy RPM package to host
-# Add --keep option to entrypoint script to keep container open;
+# Add keep option to entrypoint script to keep container open;
 # It allows to easily debug using docker exec.
 COPY entrypoint.sh /
 ENTRYPOINT /entrypoint.sh copy

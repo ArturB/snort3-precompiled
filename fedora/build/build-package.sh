@@ -13,6 +13,10 @@ cp -rv $BUILD_PATH/etc/snort/* $PKG_BUILD_ROOT/BUILD/etc/snort
 mkdir -pv $PKG_BUILD_ROOT/BUILD/usr/bin
 cp -rv $BUILD_PATH/bin/* $PKG_BUILD_ROOT/BUILD/usr/bin
 
+# /usr/lib64
+mkdir -pv $PKG_BUILD_ROOT/BUILD/usr/lib64
+cp -rv $BUILD_PATH/lib64/* $PKG_BUILD_ROOT/BUILD/usr/lib64
+
 # /usr/include/snort
 mkdir -pv $PKG_BUILD_ROOT/BUILD/usr/include/snort
 cp -rv $BUILD_PATH/include/snort $PKG_BUILD_ROOT/BUILD/usr/include/snort

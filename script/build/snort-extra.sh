@@ -14,3 +14,4 @@ cd /snort3_extra && \
 $BUILD_PATH/bin/snort \
     -c $BUILD_PATH/etc/snort/snort.lua \
     --plugin-path $BUILD_PATH/lib64/snort_extra \
+    -A alert_ex
