@@ -14,9 +14,9 @@ cd libdaq && autoreconf --install && ./configure && make install
 # Download snort latest source and install
 cd / && git clone git://github.com/snort3/snort3
 cd snort3 && \
-  ./configure_cmake.sh --prefix=/snort3/snort3 && \
+  ./configure_cmake.sh --prefix=$BUILD_PATH && \
   cd build && \
   make -j $(nproc) install
 
 # Basic installation check
-/snort3/snort3/bin/snort -V
+$BUILD_PATH/bin/snort -V

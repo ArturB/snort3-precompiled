@@ -4,8 +4,6 @@ Release:        1%{?dist}
 Summary:        Snort 3 Beta precompiled binaries. 
 License:        GPLv2
 
-#BuildRequires:  autoconf
-
 %description
 Snort 3 Beta precompiled binaries. 
 
@@ -14,11 +12,11 @@ Snort 3 Beta precompiled binaries.
 %build
 
 %install
-cp -r %{_builddir}/usr %{buildroot}
+cp -r %{_builddir}/* %{buildroot}
 
 %files
+/etc/snort/*
 /usr/bin/*
-/usr/etc/snort/*
 /usr/include/snort/*
-/usr/lib64/*
 /usr/share/doc/snort/*
+/usr/lib64/*
