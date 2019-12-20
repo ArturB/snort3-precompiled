@@ -9,9 +9,3 @@ cd /snort3_extra && \
     ./configure_cmake.sh --prefix=$BUILD_PATH && \
     cd build && \
         make -j $(nproc) install
-
-# Basic installation check
-$BUILD_PATH/bin/snort \
-    -c $BUILD_PATH/etc/snort/snort.lua \
-    --plugin-path $BUILD_PATH/lib64/snort_extra \
-    -A alert_ex

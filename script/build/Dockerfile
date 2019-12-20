@@ -1,4 +1,5 @@
 ARG OS_VERSION
+
 FROM $OS_VERSION
 
 # Set the working directory
@@ -8,33 +9,44 @@ WORKDIR /
 COPY install-deps.sh /
 RUN /install-deps.sh
 
-# Set build path and path, where dependencies are installed
-ENV BUILD_PATH /snort3/snort3
-ENV LD_LIBRARY_PATH /usr/local/lib
+# Set build path and dependencies path
+ARG _BUILD_PATH
+ARG _LD_LIBRARY_PATH
+ENV BUILD_PATH ${_BUILD_PATH}
+ENV LD_LIBRARY_PATH ${_LD_LIBRARY_PATH}
 
 # Download latest snort source and install
-COPY snort.sh /
-RUN /snort.sh
+COPY .snort.sh /
+RUN /.snort.sh
 
-# Set pkgconfig path
-ENV PKG_CONFIG_PATH ${BUILD_PATH}/lib64/pkgconfig
+# Set pkg-config path
+ARG _PKG_CONFIG_PATH
+ENV PKG_CONFIG_PATH ${_PKG_CONFIG_PATH}
 
 # Download snort3_extra (plugins) and install
-COPY snort-extra.sh / 
-RUN /snort-extra.sh
+COPY .snort-extra.sh / 
+RUN /.snort-extra.sh
 
-# Set rpmbuild root path
-ENV PKG_BUILD_ROOT /root/rpmbuild
-ENV TARGET_LIBRARY_PATH /usr/lib64
+# Set package root build path and target paths
+ARG _PKG_BUILD_ROOT
+ARG _TARGET_LIBRARY_PATH
+ENV PKG_BUILD_ROOT ${_PKG_BUILD_ROOT}
+ENV TARGET_LIBRARY_PATH ${_TARGET_LIBRARY_PATH}
 
 # Build snort3 RPM package
+ARG _PKG_FILENAME
 COPY build-package.sh /
-COPY copy-package.sh /
-COPY snort3.spec /
+COPY ${_PKG_FILENAME} /
 RUN /build-package.sh
 
-# Build and copy RPM package to host
+# Set package name and path
+ARG _DIST_NAME
+ARG _DIST_DIR
+ENV DIST_NAME ${_DIST_NAME}
+ENV DIST_DIR ${_DIST_DIR}
+
+# Build and/or copy RPM package to host
 # Add keep option to entrypoint script to keep container open;
 # It allows to easily debug using docker exec.
-COPY entrypoint.sh /
-ENTRYPOINT /entrypoint.sh copy
+COPY . /
+ENTRYPOINT /.entrypoint.sh copy
