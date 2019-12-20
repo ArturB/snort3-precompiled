@@ -14,8 +14,8 @@ mkdir -pv $PKG_BUILD_ROOT/usr/bin
 cp -rv $BUILD_PATH/bin/* $PKG_BUILD_ROOT/usr/bin
 
 # /usr/lib
-mkdir -pv $PKG_BUILD_ROOT/usr/lib
-cp -rv $BUILD_PATH/lib/* $PKG_BUILD_ROOT/usr/lib
+mkdir -pv $PKG_BUILD_ROOT/$TARGET_LIBRARY_PATH
+cp -rv $BUILD_PATH/lib/* $PKG_BUILD_ROOT/$TARGET_LIBRARY_PATH
 
 # /usr/include/snort
 mkdir -pv $PKG_BUILD_ROOT/usr/include/snort

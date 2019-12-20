@@ -14,8 +14,8 @@ mkdir -pv $PKG_BUILD_ROOT/BUILD/usr/bin
 cp -rv $BUILD_PATH/bin/* $PKG_BUILD_ROOT/BUILD/usr/bin
 
 # /usr/lib64
-mkdir -pv $PKG_BUILD_ROOT/BUILD/usr/lib64
-cp -rv $BUILD_PATH/lib64/* $PKG_BUILD_ROOT/BUILD/usr/lib64
+mkdir -pv $PKG_BUILD_ROOT/BUILD/$TARGET_LIBRARY_PATH
+cp -rv $BUILD_PATH/lib64/* $PKG_BUILD_ROOT/BUILD/$TARGET_LIBRARY_PATH
 
 # /usr/include/snort
 mkdir -pv $PKG_BUILD_ROOT/BUILD/usr/include/snort
