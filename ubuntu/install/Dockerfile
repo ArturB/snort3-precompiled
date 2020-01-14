@@ -5,6 +5,10 @@ FROM $OS_VERSION
 # Set the working directory
 WORKDIR /
 
+# Install necessary dependencies
+COPY install-deps.sh /
+RUN /install-deps.sh
+
 # Set distribution name (used to install appropriate package)
 # package path and library path
 ARG _DIST_NAME
@@ -18,4 +22,4 @@ ENV TARGET_LIBRARY_PATH ${_TARGET_LIBRARY_PATH}
 # Add keep option to entrypoint script to keep container open;
 # It allows to easily debug using docker exec.
 COPY . /
-ENTRYPOINT /.entrypoint.sh install
+ENTRYPOINT /entrypoint.sh install

@@ -16,8 +16,8 @@ ENV BUILD_PATH ${_BUILD_PATH}
 ENV LD_LIBRARY_PATH ${_LD_LIBRARY_PATH}
 
 # Download latest snort source and install
-COPY .snort.sh /
-RUN /.snort.sh
+COPY build-snort.sh /
+RUN /build-snort.sh
 
 # Set package root build path and target paths
 ARG _PKG_BUILD_ROOT
@@ -41,4 +41,4 @@ ENV DIST_DIR ${_DIST_DIR}
 # Add keep option to entrypoint script to keep container open;
 # It allows to easily debug using docker exec.
 COPY . /
-ENTRYPOINT /.entrypoint.sh copy
+ENTRYPOINT /entrypoint.sh export

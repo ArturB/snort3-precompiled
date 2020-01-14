@@ -5,9 +5,6 @@ x-base: &base
   - type: bind
     source: ../dist
     target: /dist
-  - type: bind
-    source: ../script
-    target: /script
   privileged: true
 x-environment: &env
   _DIST_DIR: /dist/opensuse
@@ -22,17 +19,17 @@ services:
 
   leap15.0-build:
     image: docker.pkg.github.com/arturb/snort3-precompiled/leap15.0-build:latest
-    build: 
+    build:
       context: ./build
       args:
         OS_VERSION: opensuse/leap:15.0
         _DIST_NAME: leap15.0
         <<: *env
     <<: *base
-  
+
   leap15.0-install:
     image: docker.pkg.github.com/arturb/snort3-precompiled/leap15.0-install:latest
-    build: 
+    build:
       context: ./install
       args:
         OS_VERSION: opensuse/leap:15.0
@@ -42,17 +39,17 @@ services:
 
   leap15.1-build:
     image: docker.pkg.github.com/arturb/snort3-precompiled/leap15.1-build:latest
-    build: 
+    build:
       context: ./build
       args:
         OS_VERSION: opensuse/leap:15.1
         _DIST_NAME: leap15.1
         <<: *env
     <<: *base
-  
+
   leap15.1-install:
     image: docker.pkg.github.com/arturb/snort3-precompiled/leap15.1-install:latest
-    build: 
+    build:
       context: ./install
       args:
         OS_VERSION: opensuse/leap:15.1

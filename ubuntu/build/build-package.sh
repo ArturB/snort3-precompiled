@@ -17,13 +17,13 @@ cp -rv $BUILD_PATH/bin/* $PKG_BUILD_ROOT/usr/bin
 mkdir -pv $PKG_BUILD_ROOT/$TARGET_LIBRARY_PATH
 cp -rv $BUILD_PATH/lib/* $PKG_BUILD_ROOT/$TARGET_LIBRARY_PATH
 
-# /usr/include/snort
-mkdir -pv $PKG_BUILD_ROOT/usr/include/snort
-cp -rv $BUILD_PATH/include/snort $PKG_BUILD_ROOT/usr/include/snort
+# /usr/include
+mkdir -pv $PKG_BUILD_ROOT/usr/include
+cp -rv $BUILD_PATH/include/snort/* $PKG_BUILD_ROOT/usr/include
 
 # /usr/share/doc/snort
 mkdir -pv $PKG_BUILD_ROOT/usr/share/doc/snort
-cp -rv $BUILD_PATH/share/doc/snort $PKG_BUILD_ROOT/usr/share/doc/snort
+cp -rv $BUILD_PATH/share/doc/snort/* $PKG_BUILD_ROOT/usr/share/doc/snort
 
 # LD_LIBRARY_PATH (source dependencies)
 mkdir -pv $PKG_BUILD_ROOT/$TARGET_LIBRARY_PATH

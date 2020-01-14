@@ -5,9 +5,6 @@ x-base: &base
   - type: bind
     source: ../dist
     target: /dist
-  - type: bind
-    source: ../script
-    target: /script
   privileged: true
 x-environment: &env
   _DIST_DIR: /dist/fedora

@@ -5,9 +5,6 @@ x-base: &base
   - type: bind
     source: ../dist
     target: /dist
-  - type: bind
-    source: ../script
-    target: /script
   privileged: true
 x-environment: &env
   _DIST_DIR: /dist/raspbian
@@ -22,17 +19,17 @@ services:
 
   stretch-build:
     image: docker.pkg.github.com/arturb/snort3-precompiled/raspbian-stretch-build:latest
-    build: 
+    build:
       context: ./build
       args:
         OS_VERSION: debian:stretch
         _DIST_NAME: raspbian-stretch
         <<: *env
     <<: *base
-  
+
   stretch-install:
     image: docker.pkg.github.com/arturb/snort3-precompiled/raspbian-stretch-install:latest
-    build: 
+    build:
       context: ./install
       args:
         OS_VERSION: debian:stretch
@@ -42,17 +39,17 @@ services:
 
   buster-build:
     image: docker.pkg.github.com/arturb/snort3-precompiled/raspbian-buster-build:latest
-    build: 
+    build:
       context: ./build
       args:
         OS_VERSION: debian:buster
         _DIST_NAME: raspbian-buster
         <<: *env
     <<: *base
-  
+
   buster-install:
     image: docker.pkg.github.com/arturb/snort3-precompiled/raspbian-buster-install:latest
-    build: 
+    build:
       context: ./install
       args:
         OS_VERSION: debian:buster
