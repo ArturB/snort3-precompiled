@@ -1,9 +1,9 @@
 .PHONY: all clean push arm-push
 		centos centos8
-		debian stretch buster 
-		fedora fc30 fc31 
-		opensuse leap15.0 leap15.1 
-		rasp rasp-stretch rasp-buster 
+		debian stretch buster
+		fedora fc30 fc31
+		opensuse leap15.0 leap15.1
+		rasp rasp-stretch rasp-buster
 		ubuntu bionic eoan
 
 #---------------------Common targets-----------------------------#
@@ -28,7 +28,7 @@ arm-push:
 
 centos: centos8
 
-centos8: 
+centos8:
 		./build.sh $@
 
 #--------------------------Debian--------------------------------#
@@ -48,7 +48,7 @@ fedora: fc30 fc31
 fc30:
 		./build.sh $@
 
-fc31:	
+fc31:
 		./build.sh $@
 
 #--------------------------OpenSUSE------------------------------#
@@ -75,7 +75,7 @@ raspbian-buster:
 
 ubuntu: bionic eoan
 
-bionic: 
+bionic:
 		./build.sh $@
 
 eoan:

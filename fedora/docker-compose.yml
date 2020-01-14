@@ -22,7 +22,7 @@ services:
 
   fc30-build:
     image: docker.pkg.github.com/arturb/snort3-precompiled/fc30-build:latest
-    build: 
+    build:
       context: ./build
       args:
         OS_VERSION: fedora:30
@@ -32,7 +32,7 @@ services:
 
   fc30-install:
     image: docker.pkg.github.com/arturb/snort3-precompiled/fc30-install:latest
-    build: 
+    build:
       context: ./install
       args:
         OS_VERSION: fedora:30
@@ -42,17 +42,17 @@ services:
 
   fc31-build:
     image: docker.pkg.github.com/arturb/snort3-precompiled/fc31-build:latest
-    build: 
+    build:
       context: ./build
       args:
         OS_VERSION: fedora:31
         _DIST_NAME: fc31
         <<: *env
     <<: *base
-  
+
   fc31-install:
     image: docker.pkg.github.com/arturb/snort3-precompiled/fc31-install:latest
-    build: 
+    build:
       context: ./install
       args:
         OS_VERSION: fedora:31
