@@ -4,12 +4,13 @@ This repository contains precompiled binaries (in .deb and .rpm format) of [Snor
 
 ## Supported distributions
 Currently, packages for following operating systems are available:
-- [CentOS 8](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1.el8.x86_64.rpm)
-- Debian [Buster](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-debian-buster.deb) and [Stretch](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-debian-stretch.deb)
-- Fedora [31](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1.fc31.x86_64.rpm) and [30](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1.fc30.x86_64.rpm)
-- OpenSUSE Leap [15.1](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1.x86_64-leap-15.1.rpm) and [15.0](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1.x86_64-leap-15.0.rpm)
-- Raspbian [Buster](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-raspbian-buster.deb) and [Stretch](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-raspbian-stretch.deb)
-- Ubuntu [19.10 Eoan Ermine](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-ubuntu-19.10.deb) and [18.04 Bionic Beaver LTS](https://github.com/ArturB/snort3-precompiled/releases/download/latest/snort3-0.1-1-ubuntu-18.04.deb)
+- Centos8: [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1.el8.x86_64.rpm)]
+- Debian Stretch [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1-debian-stretch.deb)] and Buster [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1-debian-buster.deb)]
+- Fedora 30 [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1.fc30.x86_64.rpm)] and 31 [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1.fc31.x86_64.rpm)]
+- OpenSUSE Leap 15.0 [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1.x86_64-leap15.0.rpm)] and 15.1 [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1.x86_64-leap15.1.rpm)]
+- Ubuntu 18.04 Bionic [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1-ubuntu-bionic.deb)] and 19.10 Eoan Ermine [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1-ubuntu-eoan.deb)]
+
+Binaries for ARM Raspbian Stretch [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1-raspbian-stretch.deb)] and Buster [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1-raspbian-buster.deb)] are also available. 
 
 Packages for Debian, Fedora, Raspbian and Ubuntu should work out of the box. For CentOS and OpenSUSE small preconfiguration is necessary. 
 
