@@ -4,7 +4,7 @@ This repository contains precompiled binaries (in .deb and .rpm format) of [Snor
 
 ## Supported distributions
 Currently, packages for following operating systems are available:
-- Centos8: [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1.el8.x86_64.rpm)]
+- Centos 8: [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1.el8.x86_64.rpm)]
 - Debian Stretch [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1-debian-stretch.deb)] and Buster [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1-debian-buster.deb)]
 - Fedora 30 [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1.fc30.x86_64.rpm)] and 31 [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1.fc31.x86_64.rpm)]
 - OpenSUSE Leap 15.0 [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1.x86_64-leap15.0.rpm)] and 15.1 [[download](https://github.com/ArturB/snort3-precompiled/releases/download/3.0.0/snort3-0.1-1.x86_64-leap15.1.rpm)]
