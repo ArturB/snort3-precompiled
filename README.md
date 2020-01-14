@@ -1,4 +1,4 @@
-# Snort 3 Precompiled binaries
+# Snort 3 precompiled binaries
 
 This repository contains precompiled binaries (in .deb and .rpm format) of [Snort 3](https://github.com/snort3/snort3) (which is currently in beta) for various Linux distributions. Both x86_64 and armhf architectures are supported; armhf packages for Raspberry Pi are available. All binaries are build and tested using Docker containers, and are updated with newest version of Snort from source on monthly basis. 
 
