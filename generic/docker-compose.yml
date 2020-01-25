@@ -1,0 +1,38 @@
+version: '3.4'
+
+x-base: &base
+  volumes:
+  - type: bind
+    source: ../dist
+    target: /dist
+  privileged: true
+x-environment: &env
+  _DIST_DIR: /dist/generic
+  _BUILD_PATH: /snort3/snort3
+  _LD_LIBRARY_PATH: /usr/local/lib
+  _PKG_CONFIG_PATH: /snort3/snort3/lib/pkgconfig
+  _PKG_FILENAME: control
+  _PKG_BUILD_ROOT: /snort3-0.1-1
+  _TARGET_LIBRARY_PATH: /usr/lib/x86_64-linux-gnu
+
+services:
+
+  x86_64-build:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/generic-build:latest
+    build:
+      context: ./build
+      args:
+        OS_VERSION: debian:buster
+        _DIST_NAME: generic
+        <<: *env
+    <<: *base
+
+  x86_64-install:
+    image: docker.pkg.github.com/arturb/snort3-precompiled/generic-install:latest
+    build:
+      context: ./install
+      args:
+        OS_VERSION: debian:buster
+        _DIST_NAME: generic
+        <<: *env
+    <<: *base

@@ -59,6 +59,13 @@ fc30:
 fc31:
 		$(MAKE) build DIST_NAME=fedora DIST_VERSION=fc31
 
+#--------------------------Generic-------------------------------#
+
+generic: x86_64
+
+x86_64:
+		$(MAKE) build DIST_NAME=generic DIST_VERSION=x86_64
+
 #--------------------------OpenSUSE------------------------------#
 
 opensuse: leap15.0 leap15.1

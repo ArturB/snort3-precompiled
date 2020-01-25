@@ -15,10 +15,9 @@ wait $LIBPCAP_PID
 wait $LIBDNET_PID
 wait $LIBDAQ_PID
 
-# Download snort source and install
-cd / && git clone https://github.com/snort3/snort3
+# Download snort latest source and install
+cd / && git clone git://github.com/ArturB/snort3
 cd snort3 && \
-    git reset --hard 95c02f98ef93cdb66f03097c2e10fb8b4041a97c && \
     ./configure_cmake.sh --prefix=$BUILD_PATH && \
     cd build && \
         make -j $(nproc) install
